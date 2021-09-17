@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head xlmns:th="http://www.thymeleaf.org">
+	<meta charset="UTF-8">
+	<title>Consume GetReady API</title>
+</head>
+
+<body>
+	<h1 style="text-align: center;">GetReady</h1>
+
+	<a th:href="@{/randomquestion}" method="get">Get random question</a>
+	<br /><br />
+	
+	<div id="searchByWord">
+		<span>Search questions by a keyword</span>
+		<form th:action="@{/search}" method="get" th:object="${keyword}">
+			<input type="text" id="keyword" name="keyword" />
+			<input type="submit" value="Search" />
+		</form>
+	</div>
+	<br /><br />
+
+	<p>...or by selecting topics</p>
+	<form th:action="@{/searchByLabels}" method="post" th:object="${labels}">
+		<ul>
+			<li th:each="label : ${allLabels}">
+				<input type="checkbox" th:id="${label}" name="labels" th:value="${label}" />
+				<label th:text="${label}" th:for="${label}"></label>
+			</li>
+		</ul>
+		<button type="submit">Search</button>
+	</form>
+	
+	<br/><br/><br/>
+	
+	<div id="message" th:text="${message}">Message</div>
+	
+</body>
+
+</html>

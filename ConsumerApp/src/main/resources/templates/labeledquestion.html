@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head xlmns:th="http://www.thymeleaf.org">
+<script src="question.js"></script>
+<meta charset="UTF-8">
+<title>Random question</title>
+</head>
+<body>
+	<h1>Question</h1>
+	
+	<div th:text="${question.question}"></div>
+	<br/>
+	<button onclick="toggleAnswer()">Show answer</button>
+	<br/>
+	<br/>
+	<div id="answer" style="display: none;">
+		<div th:text="${question.answer}"></div>
+		<br/>
+		<a th:href="@{${question.info}}" target="_blank">Learn more</a>
+	</div>
+	
+	<br/>
+	<a th:href="@{/}"><button>Back</button></a>
+	<br/>
+	<a th:href="@{/searchByLabels}"><button>Randomize question</button></a>
+</body>
+</html>
