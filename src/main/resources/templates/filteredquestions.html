@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head xlmns:th="http://www.thymeleaf.org">
+	<script src="question.js"></script>
+	<meta charset="UTF-8">
+	<title>Search</title>
+</head>
+
+<body>
+	<h1>Question search</h1>
+
+	<div id="questions">
+		<div th:each="question : ${questions}">
+			<div th:text="${question.question}"></div>
+			<form th:action="@{/question}" method="post" th:object="${question}">
+				<input type="hidden" th:name="question" th:value="${question.question}" />
+				<input type="hidden" th:name="answer" th:value="${question.answer}" />
+				<input type="hidden" th:name="info" th:value="${question.info}" />
+				<input type="submit" value="Check" />
+			</form>
+			<br />
+		</div>
+	</div>
+
+	<br />
+	<a th:href="@{/}"><button>Back</button></a>
+	<br />
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "paths",
+      "type": "consumer.config.ConfigProperties",
+      "sourceType": "consumer.config.ConfigProperties"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
