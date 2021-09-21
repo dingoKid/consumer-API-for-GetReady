@@ -55,7 +55,7 @@ public class QuestionController {
 	public String searchByKeyword(String keyword, Map<String, Object> model) {
 		if (keyword.isBlank())
 			return "redirect:";
-		Question[] questions = restTemplate.getForEntity(SEARCH_QUESTIONS + keyword, Question[].class).getBody();
+		Question[] questions = restTemplate.getForEntity(SEARCH_QUESTIONS + "/" + keyword, Question[].class).getBody();
 		model.put("questions", questions);
 		return "filteredquestions";
 	}
