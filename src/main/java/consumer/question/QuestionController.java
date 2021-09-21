@@ -66,7 +66,7 @@ public class QuestionController {
 		return "randomquestion";
 	}
 
-	@PostMapping("/searchByLabels")
+	@GetMapping("/searchByLabels")
 	public String searchByLabels(String labels, Map<String, Object> model) {
 		if (labels == null)
 			return "redirect:";
@@ -74,6 +74,7 @@ public class QuestionController {
 		ResponseEntity<Question> questionEntity = restTemplate.postForEntity(SEARCH_QUESTIONS, labelsList,
 				Question.class);
 		model.put("question", questionEntity.getBody());
+		model.put("labels", labels);
 		return "labeledquestion";
 	}
 }

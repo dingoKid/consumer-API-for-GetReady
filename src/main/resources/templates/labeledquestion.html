@@ -20,8 +20,11 @@
 	</div>
 	
 	<br/>
-	<a th:href="@{/}"><button>Back</button></a>
+	<form th:action="@{/searchByLabels}" method="get" th:object="${labels}">
+		<input type="hidden" th:value="${labels}" name="labels" />
+		<button type="submit">New question</button>
+	</form>
 	<br/>
-	<a th:href="@{/searchByLabels}"><button>Randomize question</button></a>
+	<a th:href="@{/}"><button>Back</button></a>
 </body>
 </html>

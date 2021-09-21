@@ -22,7 +22,7 @@
 	<br /><br />
 
 	<p>...or by selecting topics</p>
-	<form th:action="@{/searchByLabels}" method="post" th:object="${labels}">
+	<form th:action="@{/searchByLabels}" method="get" th:object="${labels}">
 		<ul>
 			<li th:each="label : ${allLabels}">
 				<input type="checkbox" th:id="${label}" name="labels" th:value="${label}" />
