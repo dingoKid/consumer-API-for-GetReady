@@ -56,6 +56,8 @@ public class QuestionController {
 		if (keyword.isBlank())
 			return "redirect:";
 		Question[] questions = restTemplate.getForEntity(SEARCH_QUESTIONS + "/" + keyword, Question[].class).getBody();
+		if(questions.length == 0) 
+			return "redirect:";
 		model.put("questions", questions);
 		return "filteredquestions";
 	}
@@ -77,4 +79,6 @@ public class QuestionController {
 		model.put("labels", labels);
 		return "labeledquestion";
 	}
+	
+	
 }

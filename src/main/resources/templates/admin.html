@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head xlmns:th="http://www.thymeleaf.org">
+	<meta charset="UTF-8">
+	<title>Admin</title>
+</head>
+
+<body>
+	<h1 style="text-align: center;">GetReady administration</h1>
+	
+	<p>Delete a question by typing the whole question:</p>
+	<form th:action="@{/api/delete}" method="get" th:object="${questionToDelete}">
+		<input type="text" name="questionToDelete" />
+		<button type="submit">Delete</button>
+	</form> 
+	
+	<br/>
+	<a th:href="@{/}"><button>Back</button></a>
+</body>
+
+</html>
