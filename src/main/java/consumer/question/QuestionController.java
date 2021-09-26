@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
@@ -46,9 +47,15 @@ public class QuestionController {
 
 	@GetMapping("/randomquestion")
 	public String getRandomQuestion(Map<String, Object> model) {
-		Question randomQuestion = restTemplate.getForObject(GET_QUESTION, Question.class);
-		model.put("question", randomQuestion);
-		return "randomquestion";
+		try {
+			Question randomQuestion = restTemplate.getForObject(GET_QUESTION, Question.class);
+			model.put("question", randomQuestion);
+			return "randomquestion";
+		} catch (HttpClientErrorException e) {
+			String message = e.getMessage();
+			message = getMessageFromExceptionString(message);
+			return "redirect:";
+		}
 	}
 
 	@GetMapping("/search")
@@ -56,7 +63,7 @@ public class QuestionController {
 		if (keyword.isBlank())
 			return "redirect:";
 		Question[] questions = restTemplate.getForEntity(SEARCH_QUESTIONS + "/" + keyword, Question[].class).getBody();
-		if(questions.length == 0) 
+		if(questions.length == 0)
 			return "redirect:";
 		model.put("questions", questions);
 		return "filteredquestions";
@@ -73,11 +80,22 @@ public class QuestionController {
 		if (labels == null)
 			return "redirect:";
 		List<String> labelsList = Arrays.asList(labels.split(","));
-		ResponseEntity<Question> questionEntity = restTemplate.postForEntity(SEARCH_QUESTIONS, labelsList,
-				Question.class);
-		model.put("question", questionEntity.getBody());
-		model.put("labels", labels);
-		return "labeledquestion";
+		try {
+			ResponseEntity<Question> questionEntity = restTemplate.postForEntity(SEARCH_QUESTIONS, labelsList, Question.class);
+			model.put("question", questionEntity.getBody());
+			model.put("labels", labels);
+			return "labeledquestion";
+		} catch (HttpClientErrorException e) {
+			String errorMessage = e.getMessage();
+			errorMessage = getMessageFromExceptionString(errorMessage);
+			return "redirect:";
+		}
+	}
+	
+	private String getMessageFromExceptionString(String ex) {
+		String[] arr = ex.split("message\":\"");
+		String[] arr2 = arr[1].split("\"");
+		return arr2[0];
 	}
 	
 	
