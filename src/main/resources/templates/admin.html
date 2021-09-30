@@ -4,6 +4,7 @@
 <head xlmns:th="http://www.thymeleaf.org">
 	<meta charset="UTF-8">
 	<title>Admin</title>
+	
 </head>
 
 <body>
@@ -22,13 +23,33 @@
 		<label for="question">Question</label><br/>
 		<input type="text" id="question" th:field="*{question}" /><br/>
 		<label for="answer">Answer</label><br/>
-		<!-- <input type="text" id="answer" th:field="*{answer}" /><br/> -->
 		<textarea form="questionForm" id="answer" th:field="*{answer}"></textarea><br/>
 		<label for="info">Info</label><br/>
 		<input type="text" id="info" th:field="*{info}" /><br/>
 		<br/>
+		<ul>
+			<li th:each="label : ${allLabels}">
+				<input type="checkbox" name="label" th:value="${label}" th:field="*{labels}" />
+				<label th:text="${label}" th:for="${label}"></label>
+			</li>
+		</ul>
 		<button type="submit">Add question</button>
 	</form>
+	<br/>
+	
+	<p>Add label</p>
+	<form th:action="@{/api/addlabel}" method="get" th:object="${label}">
+		<input type="text" name="label" />
+		<button type="submit">Add label</button>
+	</form>
+	
+	<br/><br/>
+	<p>Delete label</p>
+	<form th:action="@{/api/deletelabel}" method="get" th:object="${label}">
+		<input type="text" name="label" />
+		<button type="submit">Delete label</button>
+	</form>
+	
 	<br/>
 	<a th:href="@{/}"><button>Back</button></a>
 </body>
