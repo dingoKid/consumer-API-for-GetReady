@@ -60,7 +60,7 @@ public class QuestionController {
 
 	@GetMapping("/search")
 	public String searchByKeyword(String keyword, Map<String, Object> model) {
-		if (keyword.isBlank())
+		if (keyword.isEmpty())
 			return "redirect:";
 		Question[] questions = restTemplate.getForEntity(SEARCH_QUESTIONS + "/" + keyword, Question[].class).getBody();
 		if(questions.length == 0)
